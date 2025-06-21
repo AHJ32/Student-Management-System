@@ -37,6 +37,7 @@ if ($user_logged_in) {
                             <i class="fas fa-user"></i>
                         <?php endif; ?>
                     </a>
+                    <a href="index.php?action=about" title="About Us"><i class="fas fa-info-circle"></i></a>
                     <a href="index.php?action=logout" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
