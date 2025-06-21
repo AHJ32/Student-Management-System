@@ -34,14 +34,9 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    function update_profile($user_id, $username, $email, $image_path = null) {
-        if ($image_path) {
-            $stmt = $this->conn->prepare("UPDATE users SET username = ?, email = ?, profile_image = ? WHERE id = ?");
-            return $stmt->execute([$username, $email, $image_path, $user_id]);
-        } else {
-            $stmt = $this->conn->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
-            return $stmt->execute([$username, $email, $user_id]);
-        }
+    function update_profile($user_id, $username, $email, $image_path) {
+        $stmt = $this->conn->prepare("UPDATE users SET username = ?, email = ?, profile_image = ? WHERE id = ?");
+        return $stmt->execute([$username, $email, $image_path, $user_id]);
     }
 
     function user_exists($username, $email) {

@@ -10,23 +10,31 @@ function handle_user_actions($db, $action, $method) {
         $username = sanitize($_POST['username']);
         $email = sanitize($_POST['email']);
         
-        $image_path = null;
+        // Get the current profile to start with the existing image
+        $current_profile = $user_model->get_profile($user_id);
+        $image_path = $current_profile['profile_image'];
+
+        // Check if a new image has been uploaded
         if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
-            // Get old profile to delete the image
-            $current_profile = $user_model->get_profile($user_id);
-            $old_image_path = $current_profile['profile_image'];
+            // A new image is being uploaded
+            $new_image_path = uploadImage($_FILES['profile_image'], 'uploads/profiles/');
 
-            $image_path = uploadImage($_FILES['profile_image'], 'uploads/profiles/');
-
-            // If upload is successful and there was an old image, delete it
-            if ($image_path && $old_image_path) {
-                $full_old_path = __DIR__ . '/../../public/' . $old_image_path;
-                if (file_exists($full_old_path)) {
-                    unlink($full_old_path);
+            if ($new_image_path) {
+                // Delete the old image if it exists
+                if ($image_path && file_exists(__DIR__ . '/../../public/' . $image_path)) {
+                    unlink(__DIR__ . '/../../public/' . $image_path);
                 }
+                // Set the image path to the new one
+                $image_path = $new_image_path;
+            } else {
+                // Handle the upload failure
+                $_SESSION['error'] = "Image upload failed. Please use a valid image (JPG, PNG, GIF) under 5MB.";
+                header("Location: index.php?action=profile");
+                exit;
             }
         }
         
+        // Now, update the profile with the correct image path (either the new one or the old one)
         if ($user_model->update_profile($user_id, $username, $email, $image_path)) {
             $_SESSION['username'] = $username;
             $_SESSION['email'] = $email;
