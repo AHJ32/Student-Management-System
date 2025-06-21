@@ -1,21 +1,15 @@
-<h2>My Profile</h2>
-
 <div class="profile-section">
     <div class="profile-card">
-        <h3>Current Profile</h3>
+        
+        <!-- Profile Image Display -->
         <?php if ($user_profile['profile_image']): ?>
             <img src="<?php echo $user_profile['profile_image']; ?>" alt="Profile" class="profile-image">
         <?php else: ?>
-            <div style="width: 100px; height: 100px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">No Image</div>
+            <div style="width: 120px; height: 120px; background: #eee; border-radius: 50%; display: inline-block; line-height: 120px; text-align: center;">No Image</div>
         <?php endif; ?>
-        <p><strong>Username:</strong> <?php echo htmlspecialchars($user_profile['username']); ?></p>
-        <p><strong>Email:</strong> <?php echo htmlspecialchars($user_profile['email']); ?></p>
-        <p><strong>Member since:</strong> <?php echo date('M d, Y', strtotime($user_profile['created_at'])); ?></p>
-    </div>
-    
-    <div class="profile-card">
-        <h3>Update Profile</h3>
-        <form method="POST" action="index.php" enctype="multipart/form-data">
+        
+        <!-- Update Profile Form -->
+        <form method="POST" enctype="multipart/form-data" style="margin-top: 1rem;">
             <input type="hidden" name="action" value="update_profile">
             
             <div class="form-group">
@@ -33,7 +27,7 @@
                 <input type="file" name="profile_image" id="profile_image" accept="image/*">
             </div>
             
-            <button type="submit" class="btn">Update Profile</button>
+            <button type="submit" class="btn" style="width: 100%;">Update Profile</button>
         </form>
     </div>
 </div> 

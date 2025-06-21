@@ -186,24 +186,26 @@ input:focus, select:focus, textarea:focus {
 }
 
 .profile-section {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .profile-card {
     background: #f8f9fa;
-    padding: 1.5rem;
+    padding: 1rem 2rem;
     border-radius: 12px;
+    text-align: center;
+}
+
+.profile-card form {
+    text-align: left;
 }
 
 .profile-image {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 1rem;
 }
 
 .student-image {
