@@ -19,17 +19,25 @@ if ($user_logged_in) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Management System</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <?php if ($user_logged_in): ?>
             <div class="nav">
-                <h1>Student Management System</h1>
+                <h1><?php echo htmlspecialchars($user_profile['institution_name'] ?? 'Student Management'); ?></h1>
                 <div class="nav-links">
-                    <a href="index.php?action=dashboard">Dashboard</a>
-                    <a href="index.php?action=students">Students</a>
-                    <a href="index.php?action=profile">Profile</a>
-                    <a href="index.php?action=logout">Logout</a>
+                    <a href="index.php?action=dashboard" title="Dashboard"><i class="fas fa-tachometer-alt"></i></a>
+                    <a href="index.php?action=students" title="Students"><i class="fas fa-users"></i></a>
+                    <a href="index.php?action=profile" title="Profile">
+                        <?php if (!empty($user_profile['profile_image'])): ?>
+                            <img src="<?php echo htmlspecialchars($user_profile['profile_image']); ?>" alt="Profile" class="nav-profile-img">
+                        <?php else: ?>
+                            <i class="fas fa-user"></i>
+                        <?php endif; ?>
+                    </a>
+                    <a href="index.php?action=logout" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
             <?php if (isset($_SESSION['success'])): ?>
