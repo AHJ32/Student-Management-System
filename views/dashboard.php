@@ -5,8 +5,8 @@ $total_courses = $student_model->count_courses($_SESSION['user_id']);
 $recent_students = $student_model->get_recent_by_user($_SESSION['user_id']);
 ?>
 
-<div class="profile-section">
-    <div class="profile-card">
+<div class="dashboard-header">
+    <div class="profile-card dashboard-welcome">
         <h3>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
         <?php if ($user_profile['profile_image']): ?>
             <img src="<?php echo $user_profile['profile_image']; ?>" alt="Profile" class="profile-image">
@@ -17,42 +17,42 @@ $recent_students = $student_model->get_recent_by_user($_SESSION['user_id']);
         <p><strong>Member since:</strong> <?php echo date('M d, Y', strtotime($user_profile['created_at'])); ?></p>
     </div>
     
-    <div>
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number"><?php echo $total_students; ?></div>
-                <div>Total Students</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number"><?php echo $total_courses; ?></div>
-                <div>Courses</div>
-            </div>
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number"><?php echo $total_students; ?></div>
+            <div>Total Students</div>
         </div>
-        
-        <h3>Recent Students</h3>
-        <?php if ($recent_students): ?>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Course</th>
-                        <th>Added</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($recent_students as $student): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($student['name']); ?></td>
-                            <td><?php echo htmlspecialchars($student['email']); ?></td>
-                            <td><?php echo htmlspecialchars($student['course']); ?></td>
-                            <td><?php echo date('M d, Y', strtotime($student['created_at'])); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No students added yet. <a href="index.php?action=students">Add your first student!</a></p>
-        <?php endif; ?>
+        <div class="stat-card">
+            <div class="stat-number"><?php echo $total_courses; ?></div>
+            <div>Courses</div>
+        </div>
     </div>
+</div>
+
+<div class="recent-students-section">
+    <h3>Recent Students</h3>
+    <?php if ($recent_students): ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($recent_students as $student): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($student['name']); ?></td>
+                        <td><?php echo htmlspecialchars($student['email']); ?></td>
+                        <td><?php echo htmlspecialchars($student['course']); ?></td>
+                        <td><?php echo date('M d, Y', strtotime($student['created_at'])); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No students added yet. <a href="index.php?action=students">Add your first student!</a></p>
+    <?php endif; ?>
 </div>
