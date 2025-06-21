@@ -10,6 +10,7 @@ function handle_auth_actions($db, $action, $method) {
             case 'register':
                 $username = sanitize($_POST['username']);
                 $email = sanitize($_POST['email']);
+                $institution_name = sanitize($_POST['institution_name']);
                 $password = $_POST['password'];
                 $confirm_password = $_POST['confirm_password'];
                 
@@ -21,7 +22,7 @@ function handle_auth_actions($db, $action, $method) {
                 if ($user->user_exists($username, $email)) $errors[] = "Username or email already exists";
 
                 if (empty($errors)) {
-                    if ($user->register($username, $email, $password)) {
+                    if ($user->register($username, $email, $institution_name, $password)) {
                         $_SESSION['success'] = "Registration successful! Please login.";
                         header("Location: index.php?action=login");
                         exit;

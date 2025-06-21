@@ -27,6 +27,11 @@
         </div>
         
         <div class="form-group">
+            <label for="institution_name">Institution Name:</label>
+            <input type="text" name="institution_name" id="institution_name" value="<?php echo $_SESSION['post_data']['institution_name'] ?? ''; ?>" required>
+        </div>
+        
+        <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
         </div>
