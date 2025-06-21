@@ -180,4 +180,39 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.appendChild(mobileBtn);
         }
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const profileImageContainer = document.querySelector('.profile-image-container');
+    if (profileImageContainer) {
+        const fileInput = profileImageContainer.querySelector('.hidden-file-input');
+        
+        profileImageContainer.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profileImage = profileImageContainer.querySelector('.profile-image');
+                    if(profileImage) {
+                         profileImage.src = e.target.result;
+                    } else {
+                        // Handle case where there is no image initially
+                        const noImageDiv = profileImageContainer.querySelector('div');
+                        if(noImageDiv) {
+                            noImageDiv.style.display = 'none';
+                        }
+                        const newImg = document.createElement('img');
+                        newImg.src = e.target.result;
+                        newImg.classList.add('profile-image');
+                        profileImageContainer.insertBefore(newImg, profileImageContainer.firstChild);
+
+                    }
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    }
 }); 

@@ -15,19 +15,15 @@ function handle_user_actions($db, $action, $method) {
         $image_path = $current_profile['profile_image'];
 
         // Check if a new image has been uploaded
-        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0) {
-            // A new image is being uploaded
+        if (isset($_FILES['profile_image']) && !empty($_FILES['profile_image']['name']) && $_FILES['profile_image']['error'] == 0) {
             $new_image_path = uploadImage($_FILES['profile_image'], 'uploads/profiles/');
 
             if ($new_image_path) {
-                // Delete the old image if it exists
                 if ($image_path && file_exists(__DIR__ . '/../../public/' . $image_path)) {
                     unlink(__DIR__ . '/../../public/' . $image_path);
                 }
-                // Set the image path to the new one
                 $image_path = $new_image_path;
             } else {
-                // Handle the upload failure
                 $_SESSION['error'] = "Image upload failed. Please use a valid image (JPG, PNG, GIF) under 5MB.";
                 header("Location: index.php?action=profile");
                 exit;
