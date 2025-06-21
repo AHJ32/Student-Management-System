@@ -26,6 +26,10 @@
     </form>
     
     <p style="text-align: center; margin-top: 1rem;">
+        <a href="index.php?action=forgot_password" style="color: #667eea;">Forgot Password?</a>
+    </p>
+
+    <p style="text-align: center; margin-top: 1rem;">
         Don't have an account? <a href="index.php?action=register" style="color: #667eea;">Register here</a>
     </p>
 </div> 

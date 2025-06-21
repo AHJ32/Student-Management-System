@@ -49,5 +49,11 @@ class User {
         $stmt->execute([$username, $email]);
         return $stmt->rowCount() > 0;
     }
+
+    function update_password_by_email($email, $password) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->conn->prepare("UPDATE users SET password = ? WHERE email = ?");
+        return $stmt->execute([$hashed_password, $email]);
+    }
 }
 ?> 

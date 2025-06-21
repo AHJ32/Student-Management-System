@@ -15,7 +15,7 @@ $action = $_GET['action'] ?? 'login';
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Handle actions that don't require login
-$public_actions = ['login', 'register'];
+$public_actions = ['login', 'register', 'forgot_password', 'reset_password'];
 if (in_array($action, $public_actions) || (isset($_POST['action']) && in_array($_POST['action'], $public_actions))) {
     handle_auth_actions($db, $action, $method);
 }
