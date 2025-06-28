@@ -9,7 +9,7 @@
                 <?php if ($user_profile['profile_image']): ?>
                     <img src="<?php echo $user_profile['profile_image']; ?>" alt="Profile" class="profile-image">
                 <?php else: ?>
-                    <div style="width: 120px; height: 120px; background: #eee; border-radius: 50%; display: inline-block; line-height: 120px; text-align: center;">No Image</div>
+                    <div style="width: 120px; height: 120px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #aaa;"><i class="fas fa-user"></i></div>
                 <?php endif; ?>
                 <div class="profile-image-overlay">
                     <span><i class="fas fa-camera"></i></span>
