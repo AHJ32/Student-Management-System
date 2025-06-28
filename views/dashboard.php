@@ -36,16 +36,30 @@ $recent_students = $student_model->get_recent_by_user($_SESSION['user_id']);
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Course</th>
+                        <?php if ($user_profile['institution_type'] === 'School'): ?>
+                            <th>Class</th>
+                        <?php elseif ($user_profile['institution_type'] === 'Polytechnic'): ?>
+                            <th>Dept.</th>
+                            <th>Sem.</th>
+                        <?php else: ?>
+                            <th>Course</th>
+                        <?php endif; ?>
                         <th>Added</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($recent_students as $student): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($student['name']); ?></td>
-                            <td><?php echo htmlspecialchars($student['email']); ?></td>
-                            <td><?php echo htmlspecialchars($student['course']); ?></td>
+                            <td><?php echo htmlspecialchars($student['name'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($student['email'] ?? ''); ?></td>
+                            <?php if ($user_profile['institution_type'] === 'School'): ?>
+                                <td><?php echo htmlspecialchars($student['class'] ?? ''); ?></td>
+                            <?php elseif ($user_profile['institution_type'] === 'Polytechnic'): ?>
+                                <td><?php echo htmlspecialchars($student['dept'] ?? ''); ?></td>
+                                <td><?php echo htmlspecialchars($student['sem'] ?? ''); ?></td>
+                            <?php else: ?>
+                                <td><?php echo htmlspecialchars($student['course'] ?? ''); ?></td>
+                            <?php endif; ?>
                             <td><?php echo date('M d, Y', strtotime($student['created_at'])); ?></td>
                         </tr>
                     <?php endforeach; ?>

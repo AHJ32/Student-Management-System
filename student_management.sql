@@ -33,6 +33,9 @@ CREATE TABLE `students` (
   `email` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `course` varchar(100) NOT NULL,
+  `dept` varchar(100) DEFAULT NULL,
+  `sem` varchar(20) DEFAULT NULL,
+  `class` varchar(50) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -56,6 +59,7 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `institution_name` varchar(255) NOT NULL,
+  `institution_type` varchar(32) NOT NULL DEFAULT 'School',
   `password` varchar(255) NOT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
