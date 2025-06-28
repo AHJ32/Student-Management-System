@@ -34,7 +34,7 @@ if ($user_logged_in) {
                         <?php if (!empty($user_profile['profile_image'])): ?>
                             <img src="<?php echo htmlspecialchars($user_profile['profile_image']); ?>" alt="Profile" class="nav-profile-img">
                         <?php else: ?>
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user nav-profile-img" style="display: inline-block; width: 28px; height: 28px; text-align: center; line-height: 28px;"></i>
                         <?php endif; ?>
                     </a>
                     <a href="index.php?action=about" title="About Us"><i class="fas fa-info-circle"></i></a>
