@@ -273,50 +273,34 @@ input:focus, select:focus, textarea:focus {
     margin-bottom: 0.5rem;
 }
 
+.dashboard-header {
+    display: flex;
+    align-items: stretch;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-welcome {
+    flex: 1;
+}
+
+.stats {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .recent-students-section {
     background: #f8f9fa;
     padding: 2rem;
     border-radius: 12px;
 }
 
-.team-intro {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    color: #666;
-    font-size: 1.1rem;
-}
-
-.team-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.team-member-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.team-member-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-}
-
-.team-member-card h4 {
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-    color: #333;
-}
-
-.team-member-card .role {
-    color: #667eea;
-    font-weight: 500;
+@media (max-width: 992px) {
+    .dashboard-header {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 768px) {
@@ -336,11 +320,5 @@ input:focus, select:focus, textarea:focus {
     .nav {
         flex-direction: column;
         gap: 1rem;
-    }
-}
-
-@media (max-width: 992px) {
-    .dashboard-header {
-        flex-direction: column;
     }
 } 
