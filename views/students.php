@@ -17,6 +17,10 @@ $students = $student_model->get_all_by_user($_SESSION['user_id']);
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Course</th>
+                <?php if (($user_profile['institution_type'] ?? '') === 'Polytechnic'): ?>
+                <th>Dept.</th>
+                <th>Sem.</th>
+                <?php endif; ?>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,16 +28,22 @@ $students = $student_model->get_all_by_user($_SESSION['user_id']);
             <?php foreach ($students as $student): ?>
                 <tr>
                     <td>
-                        <?php if ($student['image']): ?>
-                            <img src="<?php echo $student['image']; ?>" alt="Student" class="student-image">
+                        <?php if (!empty($student['image'])): ?>
+                            <img src="<?php echo htmlspecialchars($student['image'] ?? ''); ?>" alt="Student" class="student-image">
                         <?php else: ?>
-                            <div style="width: 60px; height: 60px; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center;">No Image</div>
+                            <div style="width: 40px; height: 40px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-user" style="font-size: 1.5rem; color: #aaa;"></i>
+                            </div>
                         <?php endif; ?>
                     </td>
-                    <td><?php echo htmlspecialchars($student['name']); ?></td>
-                    <td><?php echo htmlspecialchars($student['email']); ?></td>
-                    <td><?php echo htmlspecialchars($student['phone']); ?></td>
-                    <td><?php echo htmlspecialchars($student['course']); ?></td>
+                    <td><?php echo htmlspecialchars($student['name'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($student['email'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($student['phone'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($student['course'] ?? ''); ?></td>
+                    <?php if (($user_profile['institution_type'] ?? '') === 'Polytechnic'): ?>
+                    <td><?php echo htmlspecialchars($student['dept'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($student['sem'] ?? ''); ?></td>
+                    <?php endif; ?>
                     <td>
                         <button onclick="editStudent(<?php echo htmlspecialchars(json_encode($student)); ?>)" class="btn btn-secondary" style="margin-right: 0.5rem;">Edit</button>
                         <a href="index.php?action=students&delete_student=<?php echo $student['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
@@ -69,10 +79,41 @@ $students = $student_model->get_all_by_user($_SESSION['user_id']);
                 <input type="tel" name="phone" id="phone" required>
             </div>
             
+            <?php if (($user_profile['institution_type'] ?? '') !== 'Polytechnic'): ?>
             <div class="form-group">
                 <label for="course">Course:</label>
-                <input type="text" name="course" id="course" required>
+                <input type="text" name="course" id="course">
             </div>
+            <?php endif; ?>
+            
+            <?php if (($user_profile['institution_type'] ?? '') === 'Polytechnic'): ?>
+            <div class="form-group">
+                <label for="dept">Dept.:</label>
+                <select name="dept" id="dept" required>
+                    <option value="">Select Department</option>
+                    <option value="Computer">Computer</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sem">Sem.:</label>
+                <select name="sem" id="sem" required>
+                    <option value="">Select Semester</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                </select>
+            </div>
+            <?php endif; ?>
             
             <div class="form-group">
                 <label for="image">Image:</label>
@@ -109,10 +150,41 @@ $students = $student_model->get_all_by_user($_SESSION['user_id']);
                 <input type="tel" name="phone" id="edit_phone" required>
             </div>
             
+            <?php if (($user_profile['institution_type'] ?? '') !== 'Polytechnic'): ?>
             <div class="form-group">
                 <label for="edit_course">Course:</label>
-                <input type="text" name="course" id="edit_course" required>
+                <input type="text" name="course" id="edit_course">
             </div>
+            <?php endif; ?>
+            
+            <?php if (($user_profile['institution_type'] ?? '') === 'Polytechnic'): ?>
+            <div class="form-group">
+                <label for="edit_dept">Dept.:</label>
+                <select name="dept" id="edit_dept" required>
+                    <option value="">Select Department</option>
+                    <option value="Computer">Computer</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="edit_sem">Sem.:</label>
+                <select name="sem" id="edit_sem" required>
+                    <option value="">Select Semester</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                </select>
+            </div>
+            <?php endif; ?>
             
             <div class="form-group">
                 <label for="edit_image">New Image (optional):</label>

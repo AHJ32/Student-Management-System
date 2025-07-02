@@ -21,9 +21,9 @@ class Student {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function create($name, $email, $phone, $course, $image_path, $user_id) {
-        $stmt = $this->conn->prepare("INSERT INTO students (name, email, phone, course, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
-        return $stmt->execute([$name, $email, $phone, $course, $image_path, $user_id]);
+    function create($name, $email, $phone, $course, $dept, $sem, $class, $image_path, $user_id) {
+        $stmt = $this->conn->prepare("INSERT INTO students (name, email, phone, course, dept, sem, class, image, user_id) VALUES (?, ?, ?, ?, ?, ?, '', ?, ?)");
+        return $stmt->execute([$name, $email, $phone, $course, $dept, $sem, $image_path, $user_id]);
     }
 
     function get_single($id, $user_id) {
@@ -32,9 +32,9 @@ class Student {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function update($id, $name, $email, $phone, $course, $image_path, $user_id) {
-        $stmt = $this->conn->prepare("UPDATE students SET name = ?, email = ?, phone = ?, course = ?, image = ? WHERE id = ? AND user_id = ?");
-        return $stmt->execute([$name, $email, $phone, $course, $image_path, $id, $user_id]);
+    function update($id, $name, $email, $phone, $course, $dept, $sem, $class, $image_path, $user_id) {
+        $stmt = $this->conn->prepare("UPDATE students SET name = ?, email = ?, phone = ?, course = ?, dept = ?, sem = ?, class = '', image = ? WHERE id = ? AND user_id = ?");
+        return $stmt->execute([$name, $email, $phone, $course, $dept, $sem, $image_path, $id, $user_id]);
     }
 
     function delete($id, $user_id) {
@@ -52,6 +52,21 @@ class Student {
         $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT course) as total FROM students WHERE user_id = ?");
         $stmt->execute([$user_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+    function count_departments($user_id){
+        $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT dept) as total FROM students WHERE user_id = ? AND dept != ''");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+    function count_semesters($user_id){
+        $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT sem) as total FROM students WHERE user_id = ? AND sem != ''");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+    function get_departments_with_counts($user_id){
+        $stmt = $this->conn->prepare("SELECT dept, COUNT(*) as count FROM students WHERE user_id = ? AND dept != '' GROUP BY dept");
+        $stmt->execute([$user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?> 

@@ -7,13 +7,13 @@ class User {
         $this->conn = $db;
     }
 
-    function register($username, $email, $institution_name, $password) {
-        $query = "INSERT INTO " . $this->table_name . " (username, email, institution_name, password) VALUES (?, ?, ?, ?)";
+    function register($username, $email, $institution_name, $institution_type, $password) {
+        $query = "INSERT INTO " . $this->table_name . " (username, email, institution_name, institution_type, password) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
-        return $stmt->execute([$username, $email, $institution_name, $hashed_password]);
+        return $stmt->execute([$username, $email, $institution_name, $institution_type, $hashed_password]);
     }
 
     function login($username, $password) {

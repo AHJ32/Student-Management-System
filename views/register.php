@@ -30,6 +30,14 @@
             <label for="institution_name">Institution Name:</label>
             <input type="text" name="institution_name" id="institution_name" value="<?php echo $_SESSION['post_data']['institution_name'] ?? ''; ?>" required>
         </div>
+
+        <div class="form-group">
+            <label for="institution_type">Institution Type:</label>
+            <select name="institution_type" id="institution_type" required>
+                <option value="Polytechnic" <?php if(($_SESSION['post_data']['institution_type'] ?? '') === 'Polytechnic') echo 'selected'; ?>>Polytechnic</option>
+                <option value="Coaching Center" <?php if(($_SESSION['post_data']['institution_type'] ?? '') === 'Coaching Center') echo 'selected'; ?>>Coaching Center</option>
+            </select>
+        </div>
         
         <div class="form-group">
             <label for="password">Password:</label>

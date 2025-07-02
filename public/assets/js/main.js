@@ -9,13 +9,33 @@ function closeModal(modalId) {
 
 // Edit student function
 function editStudent(student) {
-    document.getElementById('edit_id').value = student.id;
-    document.getElementById('edit_name').value = student.name;
-    document.getElementById('edit_email').value = student.email;
-    document.getElementById('edit_phone').value = student.phone;
-    document.getElementById('edit_course').value = student.course;
-    document.getElementById('edit_current_image').value = student.image || '';
-    
+    if (document.getElementById('edit_id')) {
+        document.getElementById('edit_id').value = student.id || '';
+    }
+    if (document.getElementById('edit_name')) {
+        document.getElementById('edit_name').value = student.name || '';
+    }
+    if (document.getElementById('edit_email')) {
+        document.getElementById('edit_email').value = student.email || '';
+    }
+    if (document.getElementById('edit_phone')) {
+        document.getElementById('edit_phone').value = student.phone || '';
+    }
+    if (document.getElementById('edit_course')) {
+        document.getElementById('edit_course').value = student.course || '';
+    }
+    if (document.getElementById('edit_dept')) {
+        document.getElementById('edit_dept').value = student.dept || '';
+    }
+    if (document.getElementById('edit_sem')) {
+        document.getElementById('edit_sem').value = student.sem || '';
+    }
+    if (document.getElementById('edit_class')) {
+        document.getElementById('edit_class').value = student.class || '';
+    }
+    if (document.getElementById('edit_current_image')) {
+        document.getElementById('edit_current_image').value = student.image || '';
+    }
     openModal('editModal');
 }
 
